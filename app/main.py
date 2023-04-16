@@ -36,7 +36,7 @@ class TwitterClient(object):
         else:
             return 'negative'
 
-    def get_tweets(self, query, count=10):
+    def get_tweets(self, query, count=1000):
         tweets = []
 
         try:
@@ -80,8 +80,8 @@ def get_tweets():
         'positive_percent': positive_percent,
         'negative_percent': negative_percent,
         'neutral_percent': neutral_percent,
-        'positive_tweets': [tweet['text'] for tweet in ptweets[:10]],
-        'negative_tweets': [tweet['text'] for tweet in ntweets[:10]],
-        'neutral_tweets': [tweet['text'] for tweet in neutral_tweets[:10]]
+        'positive_tweets': [tweet['text'] for tweet in ptweets[:50]],
+        'negative_tweets': [tweet['text'] for tweet in ntweets[:50]],
+        'neutral_tweets': [tweet['text'] for tweet in neutral_tweets[:50]]
         }
     return jsonify(response)
