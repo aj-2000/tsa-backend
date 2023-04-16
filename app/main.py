@@ -3,8 +3,10 @@ import re
 import tweepy
 from tweepy import OAuthHandler
 from textblob import TextBlob
-
+from flask_cors import CORS
 app = Flask(__name__)
+app = Flask(__name__)
+CORS(app)
 
 class TwitterClient(object):
     def __init__(self):
@@ -61,7 +63,7 @@ def index():
 @app.route('/api/tweets', methods=['GET'])
 def get_tweets():
     query = request.args.get('query')
-    count = request.args.get('count', 10, type=int)
+    count = request.args.get('count', 1000, type=int)
 
     api = TwitterClient()
     tweets = api.get_tweets(query=query, count=count)
