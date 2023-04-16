@@ -56,7 +56,7 @@ class TwitterClient(object):
 
 @app.route('/')
 def index():
-    return "Hello, World!"
+    return "TSA Backend Running..."
 
 @app.route('/api/tweets', methods=['GET'])
 def get_tweets():
