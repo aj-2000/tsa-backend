@@ -5,7 +5,6 @@ from tweepy import OAuthHandler
 from textblob import TextBlob
 from flask_cors import CORS
 app = Flask(__name__)
-app = Flask(__name__)
 CORS(app)
 
 class TwitterClient(object):
