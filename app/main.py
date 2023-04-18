@@ -39,13 +39,12 @@ class TwitterClient(object):
         tweets = []
 
         try:
-            fetched_tweets = self.api.search_tweets(q=query, count=count)
-
             for tweet in fetched_tweets:
                 parsed_tweet = {}
                 parsed_tweet['text'] = tweet.text
                 parsed_tweet['sentiment'] = self.get_tweet_sentiment(tweet.text)
-
+                parsed_tweet['id_str'] = tweet.id_str
+                parsed_tweet['tweet_url'] = f"https://twitter.com/{tweet.user.screen_name}/status/{tweet.id_str}"
                 if tweet.retweet_count > 0:
                     if parsed_tweet not in tweets:
                         tweets.append(parsed_tweet)
