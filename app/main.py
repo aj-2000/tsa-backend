@@ -80,8 +80,8 @@ def get_tweets():
         'positive_percent': positive_percent,
         'negative_percent': negative_percent,
         'neutral_percent': neutral_percent,
-        'positive_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ptweets[:10]],
-        'negative_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ntweets[:10]],
-        'neutral_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in neutral_tweets[:10]]
+        'positive_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ptweets[:50]],
+        'negative_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ntweets[:50]],
+        'neutral_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in neutral_tweets[:50]]
     }
     return jsonify(response)
