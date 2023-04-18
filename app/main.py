@@ -6,7 +6,6 @@ from textblob import TextBlob
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
-
 class TwitterClient(object):
     def __init__(self):
         consumer_key = '1ujnEu1YUlNpELrVdIKOKhoGO'
@@ -35,10 +34,12 @@ class TwitterClient(object):
         else:
             return 'negative'
 
-    def get_tweets(self, query, count=1000):
+    def get_tweets(self, query, count=10):
         tweets = []
 
         try:
+            fetched_tweets = self.api.search_tweets(q=query, count=count)
+
             for tweet in fetched_tweets:
                 parsed_tweet = {}
                 parsed_tweet['text'] = tweet.text
@@ -51,17 +52,18 @@ class TwitterClient(object):
                 else:
                     tweets.append(parsed_tweet)
             return tweets
+
         except tweepy.TweepError as e:
             print("Error : " + str(e))
 
 @app.route('/')
 def index():
-    return "TSA Backend Running..."
+    return "Hello, World!"
 
 @app.route('/api/tweets', methods=['GET'])
 def get_tweets():
     query = request.args.get('query')
-    count = request.args.get('count', 1000, type=int)
+    count = request.args.get('count', 10, type=int)
 
     api = TwitterClient()
     tweets = api.get_tweets(query=query, count=count)
@@ -78,8 +80,8 @@ def get_tweets():
         'positive_percent': positive_percent,
         'negative_percent': negative_percent,
         'neutral_percent': neutral_percent,
-        'positive_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ptweets[:50]],
-        'negative_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ntweets[:50]],
-        'neutral_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in neutral_tweets[:50]]
+        'positive_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ptweets[:10]],
+        'negative_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in ntweets[:10]],
+        'neutral_tweets': [{'text': tweet['text'], 'url': tweet['tweet_url']} for tweet in neutral_tweets[:10]]
     }
     return jsonify(response)
