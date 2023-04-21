@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+import os
 from flask import Flask, request, jsonify
 import re
 import tweepy
@@ -8,10 +11,12 @@ app = Flask(__name__)
 CORS(app)
 class TwitterClient(object):
     def __init__(self):
-        consumer_key = '1ujnEu1YUlNpELrVdIKOKhoGO'
-        consumer_secret = 'jitOtlZ727c3cKnpqTaRohsPckKGSEc6aTwNocTeqQXnPMfS2m'
-        access_token = '1532967152005058560-EzTNhF5cTMwIFiHobePxDOfldAOSZ8'
-        access_token_secret = 'xMjblKodYc8mhXHjtLriTpPJrdt2D32ejyGHoFOJrtjBJ'
+
+        consumer_key = os.getenv('consumer_key')
+        consumer_secret = os.getenv('consumer_secret')
+        access_token = os.getenv('access_token')
+        access_token_secret = os.getenv('access_token_secret')
+
         try:
             # create OAuthHandler object
             self.auth = OAuthHandler(consumer_key, consumer_secret)
